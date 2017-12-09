@@ -1,0 +1,32 @@
+{
+	"manifest_version": 2,
+	"name": "Stop button",
+	"version": "0.1",
+	"description": "Adds a stop button to the browser toolbar.",
+
+	"icons": {
+		"48": "icons/stop.svg",
+		"96": "icons/stop.svg"
+	},
+
+	"permissions": [
+		"activeTab",
+		"tabs"
+	],
+
+	"browser_action": {
+		"default_icon": "icons/stop.svg",
+		"default_title": "Stop",
+		"theme_icons" : [
+			{
+				"light" : "icons/stop-dark.svg",
+				"dark" : "icons/stop.svg",
+				"size" : 16
+			}
+		]    
+	},
+
+	"background": {
+		"scripts": ["stop.js"]
+	}
+}
