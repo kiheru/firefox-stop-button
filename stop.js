@@ -19,9 +19,7 @@ function updateState(info) {
 
 function tabChanged(activeInfo) {
 	let id = activeInfo.tabId;
-	browser.tabs.get(id).then((tab) => {
-		updateState(tab);
-	});
+	browser.tabs.get(id).then(updateState);
 }
 
 function tabUpdated(tabId, changeInfo, tab) {
