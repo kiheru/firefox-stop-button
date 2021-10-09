@@ -1,33 +1,26 @@
 'use strict';
 
-function handleClick() {
-	let tab = browser.tabs.query({active: true});
-        browser.tabs.executeScript(tab.id, {
-                code: "window.stop();",
+function handleClick(tab) {
+	browser.tabs.executeScript(tab.id, {
+		code: "window.stop();",
 		allFrames: true,
 		runAt: "document_start"
-        });
+	});
 }
 
-function updateState(info) {
-	if ("loading" === info.status) {
-		browser.browserAction.enable();
+function updateState(tab) {
+	if ("loading" === tab.status) {
+		browser.browserAction.enable(tab.id);
 	} else {
-		browser.browserAction.disable();
+		browser.browserAction.disable(tab.id);
 	}
-}
-
-function tabChanged(activeInfo) {
-	let id = activeInfo.tabId;
-	browser.tabs.get(id).then(updateState);
 }
 
 function tabUpdated(tabId, changeInfo, tab) {
-	if (changeInfo.status) {
-		updateState(changeInfo);
-	}
+	updateState(tab);
 }
 
 browser.browserAction.onClicked.addListener(handleClick);
-browser.tabs.onActivated.addListener(tabChanged);
 browser.tabs.onUpdated.addListener(tabUpdated);
+
+browser.browserAction.disable();
